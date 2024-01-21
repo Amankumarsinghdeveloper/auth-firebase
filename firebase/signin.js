@@ -9,6 +9,7 @@ export default async function signIn(email, password) {
   try {
     result = await signInWithEmailAndPassword(auth, email, password);
   } catch (e) {
+    alert(e.message);
     error = e;
   }
 
