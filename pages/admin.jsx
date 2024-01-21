@@ -2,6 +2,7 @@
 import React from "react";
 import { useAuthContext } from "../AuthContext";
 import { useRouter } from "next/navigation";
+import Cookies from "js-cookie";
 
 import { getAuth, signOut } from "firebase/auth";
 
@@ -18,6 +19,8 @@ function Page() {
     signOut(auth)
       .then(() => {
         // Sign-out successful.
+        Cookies.remove("auth_token");
+        router.push("/signin");
       })
       .catch((error) => {
         // An error happened.
@@ -27,6 +30,7 @@ function Page() {
   return (
     <div>
       <h1>Only logged in users can view this page</h1>
+      <p></p>
       <button onClick={logout}>Sign Out</button>
     </div>
   );

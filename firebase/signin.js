@@ -1,3 +1,4 @@
+import Cookies from "js-cookie";
 import firebase_app from "./config";
 import { signInWithEmailAndPassword, getAuth } from "firebase/auth";
 
@@ -8,6 +9,12 @@ export default async function signIn(email, password) {
     error = null;
   try {
     result = await signInWithEmailAndPassword(auth, email, password);
+
+    console.log(result.user.accessToken);
+
+    Cookies.set("auth_token", result.user.accessToken, {
+      expires: 1 / 24,
+    });
   } catch (e) {
     alert(e.message);
     error = e;

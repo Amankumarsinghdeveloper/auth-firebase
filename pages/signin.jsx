@@ -28,6 +28,11 @@ function Page() {
     console.log(result);
     return router.push("/admin");
   };
+
+  const handlereset = () => {
+    router.push("/reset");
+  };
+
   return (
     <div className="wrapper">
       <div className="form-wrapper">
@@ -58,6 +63,7 @@ function Page() {
           <button type="submit">Sign in</button>
         </form>
       </div>
+      <p onClick={handlereset}>Forgot Password</p>
     </div>
   );
 }
