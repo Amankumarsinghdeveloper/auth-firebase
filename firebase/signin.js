@@ -10,8 +10,6 @@ export default async function signIn(email, password) {
   try {
     result = await signInWithEmailAndPassword(auth, email, password);
 
-    console.log(result.user.accessToken);
-
     Cookies.set("auth_token", result.user.accessToken, {
       expires: 1 / 24,
     });

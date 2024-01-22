@@ -3,10 +3,40 @@ import React from "react";
 import signIn from "../firebase/signin";
 import { useRouter } from "next/navigation";
 import { useAuthContext } from "../AuthContext";
+import Cookies from "js-cookie";
+
+import { auth } from "../firebase/config";
+import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 
 function Page() {
   const { user } = useAuthContext();
   const router = useRouter();
+
+  const googleAuth = new GoogleAuthProvider();
+
+  const handleGoogle = async () => {
+    try {
+      const result = await signInWithPopup(auth, googleAuth);
+      // let token = result.credential.accessToken;
+      // let user = result.user;
+
+      console.log(result._tokenResponse);
+
+      let isNewUser = result._tokenResponse.isNewUser;
+      console.log(isNewUser);
+
+      if (isNewUser) {
+        await result.user.delete();
+        alert("Account not Registred");
+      } else {
+        Cookies.set("auth_token", result.user.accessToken, {
+          expires: 1 / 24,
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   React.useEffect(() => {
     if (user) router.push("/admin");
@@ -62,6 +92,14 @@ function Page() {
           </label>
           <button type="submit">Sign in</button>
         </form>
+
+        <button
+          onClick={() => {
+            handleGoogle();
+          }}
+        >
+          Login with Google
+        </button>
       </div>
       <p onClick={handlereset}>Forgot Password</p>
     </div>
