@@ -20,7 +20,7 @@ function Page() {
       // let token = result.credential.accessToken;
       // let user = result.user;
 
-      console.log(result._tokenResponse);
+      console.log(result);
 
       let isNewUser = result._tokenResponse.isNewUser;
       console.log(isNewUser);
