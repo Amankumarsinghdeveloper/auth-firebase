@@ -34,7 +34,7 @@ function Page() {
         });
       }
     } catch (error) {
-      console.log(error);
+      alert("Account not Registred");
     }
   };
 
