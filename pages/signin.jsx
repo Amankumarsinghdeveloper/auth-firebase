@@ -3,7 +3,6 @@ import React from "react";
 import signIn from "../firebase/signin";
 import { useRouter } from "next/navigation";
 import { useAuthContext } from "../AuthContext";
-import Cookies from "js-cookie";
 
 import { auth } from "../firebase/config";
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
@@ -29,9 +28,6 @@ function Page() {
         await result.user.delete();
         alert("Account not Registred");
       } else {
-        Cookies.set("auth_token", result.user.accessToken, {
-          expires: 1 / 24,
-        });
       }
     } catch (error) {
       alert("Account not Registred");

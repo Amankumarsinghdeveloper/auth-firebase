@@ -11,6 +11,8 @@ function Page() {
   const { user } = useAuthContext();
   const router = useRouter();
 
+  const token = Cookies.get("auth_token");
+
   React.useEffect(() => {
     if (user == null) router.push("/signin");
   }, [user]);
@@ -28,8 +30,9 @@ function Page() {
   };
 
   return (
-    <div>
+    <div style={{ padding: "10px" }}>
       <h1>Only logged in users can view this page</h1>
+      <p>Token: {token}</p>
       <p></p>
       <button onClick={logout}>Sign Out</button>
     </div>
